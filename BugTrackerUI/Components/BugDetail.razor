@@ -1,0 +1,18 @@
+﻿@page "/bugdetail/{Id}"
+
+<h3>BugDetail</h3>
+<p>@Bug.Title</p>
+<p>@Bug.Description</p>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    [Inject]
+    public IBugService BugService { get; set; }
+    public Bug Bug { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Bug = BugService.GetBugs().FirstOrDefault(x => x.Id == int.Parse(Id));
+    }
+}
